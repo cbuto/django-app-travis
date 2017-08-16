@@ -5,20 +5,23 @@ ENV DOCKER_IMAGE_NAME="django-app"
 
 
 
-RUN apt-get -q update && apt-get install -y -q \
+RUN apt-get -q update && apt-get install -y nginx && apt-get install -y supervisor \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV LANG C.UTF-8
 
+COPY django_app /etc/nginx/sites-enabled/
+RUN rm /etc/nginx/sites-available/default && rm /etc/nginx/sites-enabled/default
 
-
+RUN cd
 RUN git clone https://github.com/${GITHUB_USERNAME}/${DOCKER_IMAGE_NAME}.git
 
 ADD /config/requirements.pip /config/requirements.pip
 RUN pip install --no-cache-dir -r /config/requirements.pip
 
-EXPOSE 8000
-
 WORKDIR /django-app
 
-CMD gunicorn django_app.wsgi -b 0.0.0.0:8000
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+CMD /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+
+

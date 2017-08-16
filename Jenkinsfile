@@ -2,7 +2,6 @@
 podTemplate(label: 'pod-django-app', containers: [
     containerTemplate(name: 'django-app', image: 'cbuto/django-app', ttyEnabled: true, command: 'cat'),
     containerTemplate(name: 'django-postgres', image: 'cbuto/django-postgres', ttyEnabled: true, command: 'cat'),
-    containerTemplate(name: 'django-nginx', image: 'cbuto/django-nginx', ttyEnabled: true, command: 'cat'),
     containerTemplate(name: 'kubectl', image: 'cbuto/kubectl', ttyEnabled: true, command: 'cat',
         volumes: [secretVolume(secretName: 'kube-config', mountPath: '/root/.kube')]),
     containerTemplate(name: 'docker', image: 'docker', ttyEnabled: true, command: 'cat',
@@ -31,13 +30,6 @@ podTemplate(label: 'pod-django-app', containers: [
                     sh ("ls")
                 }
             }
-
-             container('django-nginx') {
-                stage('Build Nginx') {
-                    sh ("ls")
-                }
-            }
-    
 
             container('docker') {
                 stage('Docker Build & Push Current & Latest Versions') {
