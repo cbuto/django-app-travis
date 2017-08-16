@@ -1,6 +1,5 @@
 #!groovy​
-podTemplate(label: 'pod-django-app', 
-    containers: [
+podTemplate(label: 'pod-django-app', containers: [
         containerTemplate(name: 'django-app', image: 'cbuto/django-app-jenkins', ttyEnabled: true, command: 'cat'),
         containerTemplate(name: 'django-postgres', image: 'cbuto/django-postgres', ttyEnabled: true, command: 'cat'),
         containerTemplate(name: 'kubectl', image: 'cbuto/kubectl', ttyEnabled: true, command: 'cat',
@@ -15,23 +14,11 @@ podTemplate(label: 'pod-django-app',
     node {
 
         def DOCKER_HUB_ACCOUNT = 'cbuto'
-        def DOCKER_IMAGE_NAME = 'django-app-jenkins2'
+        def DOCKER_IMAGE_NAME = 'django-app-jenkins'
         def K8S_DEPLOYMENT_NAME = 'django-app'
 
         stage('Clone Django App Repository') {
             checkout scm
- 
-            container('django-app-jenkins') {
-                stage('Build Django Site') {
-                    
-                }
-            }
-
-            container('django-postgres') {
-                stage('Build Postgres') {
-                   
-                }
-            }
 
             container('docker') {
                 stage('Docker Build & Push Current & Latest Versions') {
