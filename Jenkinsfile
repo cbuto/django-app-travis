@@ -9,4 +9,45 @@ podTemplate(label: 'pod-django-app',
             envVars: [containerEnvVar(key: 'DOCKER_CONFIG', value: '/tmp/'),])],
             volumes: [secretVolume(secretName: 'docker-config', mountPath: '/tmp'),
                   hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')
-  ]) 
+  ]) {
+
+
+    node {
+
+        def DOCKER_HUB_ACCOUNT = 'cbuto'
+        def DOCKER_IMAGE_NAME = 'django-app-jenkins2'
+        def K8S_DEPLOYMENT_NAME = 'django-app'
+
+        stage('Clone Django App Repository') {
+            checkout scm
+ 
+            container('django-app-jenkins') {
+                stage('Build Django Site') {
+                    
+                }
+            }
+
+            container('django-postgres') {
+                stage('Build Postgres') {
+                   
+                }
+            }
+
+            container('docker') {
+                stage('Docker Build & Push Current & Latest Versions') {
+                    sh ("docker build -t ${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER} .")
+                    sh ("docker push ${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}")
+                    sh ("docker tag ${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER} ${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}:latest")
+                    sh ("docker push ${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}:latest")
+                }
+            }
+
+            container('kubectl') {
+                stage('Deploy New Build To Kubernetes') {
+                    sh ("kubectl set image deployment/${K8S_DEPLOYMENT_NAME} ${K8S_DEPLOYMENT_NAME}=${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}")
+                }
+            }
+
+        }        
+    }
+}
