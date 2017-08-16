@@ -1,7 +1,7 @@
 FROM python:3.5
 
 ENV GITHUB_USERNAME="cbuto"
-ENV DOCKER_IMAGE_NAME="django-app"
+ENV DOCKER_IMAGE_NAME="django-app-jenkins"
 
 
 
@@ -19,7 +19,7 @@ RUN git clone https://github.com/${GITHUB_USERNAME}/${DOCKER_IMAGE_NAME}.git
 ADD /config/requirements.pip /config/requirements.pip
 RUN pip install --no-cache-dir -r /config/requirements.pip
 
-WORKDIR /django-app
+WORKDIR /django-app-jenkins
 
 EXPOSE 80
 
