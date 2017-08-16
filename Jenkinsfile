@@ -9,4 +9,4 @@ podTemplate(label: 'pod-django-app',
             envVars: [containerEnvVar(key: 'DOCKER_CONFIG', value: '/tmp/'),])],
             volumes: [secretVolume(secretName: 'docker-config', mountPath: '/tmp'),
                   hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')
-  ]) {
+  ]) 
