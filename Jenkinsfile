@@ -11,7 +11,7 @@ podTemplate(label: 'pod-django-app', containers: [
   ]) {
 
 
-    node {
+    node('pod-django-app') {
 
         def DOCKER_HUB_ACCOUNT = 'cbuto'
         def DOCKER_IMAGE_NAME = 'django-app-jenkins'
