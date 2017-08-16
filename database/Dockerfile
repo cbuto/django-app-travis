@@ -1,6 +1,7 @@
 FROM postgres:9.5
 MAINTAINER Casey Buto
 
-ENV POSTGRES_DB = django
-ENV POSTGRES_USER = django
-ENV POSTGRES_PASSWORD = changeme
+ENV POSTGRES_USER django
+ENV POSTGRES_PASSWORD changeme
+ENV POSTGRES_DB django
+
