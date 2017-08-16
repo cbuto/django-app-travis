@@ -18,7 +18,7 @@ podTemplate(label: 'pod-django-app',
         def K8S_DEPLOYMENT_NAME = 'django-app'
 
         stage('Clone Django App Repository') {
-            
+            checkout scm
  
             container('django-app-jenkins') {
                 stage('Build Django Site') {
