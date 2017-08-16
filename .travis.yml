@@ -12,7 +12,7 @@ env:
     - K8S_DEPLOYMENT_NAME="django-app"
 
 before_script:
-- docker pull smesch/kubectl
+- docker pull cbuto/kubectl
 - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
 
 after_script:
