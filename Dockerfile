@@ -21,7 +21,6 @@ RUN pip install --no-cache-dir -r /config/requirements.pip
 
 WORKDIR /django-app-jenkins/django-app
 
-
 EXPOSE 80
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
