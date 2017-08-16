@@ -21,6 +21,8 @@ RUN pip install --no-cache-dir -r /config/requirements.pip
 
 WORKDIR /django-app
 
+EXPOSE 80
+
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 CMD /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
 
