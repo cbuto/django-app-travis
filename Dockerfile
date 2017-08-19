@@ -5,7 +5,7 @@ ENV DOCKER_IMAGE_NAME="django-app-travis"
 
 
 
-RUN apt-get -q update && apt-get install -y nginx && apt-get install -y supervisor \
+RUN apt-get -q update && apt-get install -y nginx supervisor postgresql \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV LANG C.UTF-8
