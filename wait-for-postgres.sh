@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 postgres_host=$1
 postgres_port=$2
