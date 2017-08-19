@@ -15,7 +15,15 @@ env:
 
 before_script:
 - docker pull cbuto/kubectl
+- docker pull cbuto/django-app-travis
+- docker pull cbuto/django-postgres:v1
 - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+
+script:
+- docker run -d cbuto/django-postgres:v1
+- docker run -d --name django-app cbuto/django-app-travis
+- docker exec django-app sed -i 's/database.default.svc.cluster.local/172.17.0.2/g' django_app/settings.py
+- docker exec django-app ./manage.py test
 
 after_script:
 - docker build -t ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:${TRAVIS_BUILD_ID} .
