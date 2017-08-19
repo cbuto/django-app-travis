@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: database
+  labels:
+    name: database
+spec:
+  replicas: 1
+  selector:
+    name: database
+  template:
+    metadata:
+      labels:
+        name: database
+    spec:
+      containers:
+        - name: postgres
+          image: cbuto/django-postgres:v1
+          imagePullPolicy: Always
+          env:
+          ports:
+            - containerPort: 5432
+
