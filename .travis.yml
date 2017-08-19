@@ -18,8 +18,8 @@ env:
 
 before_script:
 - docker pull cbuto/kubectl
-- docker pull cbuto/django-app-travis
-- docker pull cbuto/django-postgres:v1
+- docker build -t cbuto/django-app-travis
+- docker build -t cbuto/django-postgres
 - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
 
 script:
