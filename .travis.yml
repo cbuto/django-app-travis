@@ -24,6 +24,7 @@ before_script:
 
 script:
 - docker run -d --name db cbuto/django-postgres:v1
+- docker ps
 - docker run -d --name django-app cbuto/django-app-travis
 - export IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' db)
 - docker exec django-app sed -i "s/database.default.svc.cluster.local/$IP/g" django_app/settings.py
@@ -31,7 +32,7 @@ script:
 - docker exec django-app ./manage.py test
 
 
-after_script:
+after_success:
 - docker build -t ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:${TRAVIS_BUILD_ID} .
 - docker push ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:${TRAVIS_BUILD_ID}
 - docker tag ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:${TRAVIS_BUILD_ID} ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
