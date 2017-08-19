@@ -27,9 +27,7 @@ script:
 - docker run -d --name django-app cbuto/django-app-travis
 - export IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' db)
 - docker exec django-app sed -i "s/database.default.svc.cluster.local/$IP/g" django_app/settings.py
-- docker ps
-- docker exec django-app ping -c3 $IP
-- docker exec django-app cat django_app/settings.py
+- docker exec db ps aux
 - docker exec django-app ./manage.py test
 
 
