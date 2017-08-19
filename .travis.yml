@@ -27,7 +27,8 @@ script:
 - docker run -d --name django-app django-app-travis
 - export IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' db)
 - docker exec django-app sed -i "s/database.default.svc.cluster.local/$IP/g" django_app/settings.py
-- docker exec django-app bash -c "cd .. && ls && pwd && chmod +x wait-for-postgres.sh && ./wait-for-postgres.sh $IP 5432"
+- docker exec django-app bash -c "cd .. &&  chmod +x wait-for-postgres.sh"
+- docker exec django-app bash -c "./wait-for-postgres.sh $IP 5432"
 - docker exec django-app ./manage.py test
 
 
