@@ -19,7 +19,7 @@ env:
 before_script:
 - docker pull cbuto/kubectl
 - docker build -t django-app-travis .
-- docker build -t django-postgres database/Dockerfile
+- docker build -t django-postgres database/
 - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
 
 script:
