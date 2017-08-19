@@ -22,9 +22,10 @@ before_script:
 script:
 - docker run -d --name db cbuto/django-postgres:v1
 - docker run -d --name django-app cbuto/django-app-travis
-- docker inspect db
 - docker exec django-app sed -i 's/database.default.svc.cluster.local/172.17.0.2/g' django_app/settings.py
+- docker exec django-app cat django_app/settings.py
 - docker exec django-app ./manage.py test
+
 
 after_script:
 - docker build -t ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:${TRAVIS_BUILD_ID} .
