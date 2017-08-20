@@ -2,12 +2,8 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: database
-  labels:
-    name: database
 spec:
   replicas: 1
-  selector:
-    name: database
   template:
     metadata:
       labels:
