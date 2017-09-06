@@ -16,4 +16,11 @@ spec:
           env:
           ports:
             - containerPort: 5432
+          volumeMounts:
+            - name: django-postgres
+              mountPath: /var/lib/postgresql/db-data
+      volumes:
+        - name: django-postgres
+          persistentVolumeClaim:
+            claimName: django-postgres-pv
 
