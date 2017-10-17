@@ -30,8 +30,6 @@ script:
 - docker exec django-app bash -c "cd ../scripts &&  chmod +x wait-for-postgres.sh"
 - docker exec django-app bash -c "cd ../scripts && ./wait-for-postgres.sh $IP 5432"
 - docker exec django-app coverage run manage.py test -v 2
-- docker exec django-app coverage html --omit=manage.py
-
 
 after_success:
 - docker build -t ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:${TRAVIS_BUILD_ID} .
@@ -44,3 +42,4 @@ after_success:
 - sed -i -e 's|KUBE_ADMIN_KEY|'"${KUBE_ADMIN_KEY}"'|g' kubeconfig
 - sed -i -e 's|KUBE_USERNAME|'"${KUBE_USERNAME}"'|g' kubeconfig
 - docker run -v ${TRAVIS_BUILD_DIR}:/kube cbuto/kubectl kubectl --kubeconfig /kube/kubeconfig set image deployment/${K8S_DEPLOYMENT_NAME} ${K8S_DEPLOYMENT_NAME}=${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:$TRAVIS_BUILD_ID
+- coveralls
