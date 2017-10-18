@@ -3,3 +3,4 @@ gunicorn
 psycopg2
 coverage
 coveralls
+pyyaml
