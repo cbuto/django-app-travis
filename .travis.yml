@@ -32,7 +32,7 @@ script:
 - docker exec django-app sed -i "s/database.default.svc.cluster.local/$IP/g" django_app/settings.py
 - docker exec django-app bash -c "cd ../scripts &&  chmod +x wait-for-postgres.sh"
 - docker exec django-app bash -c "cd ../scripts && ./wait-for-postgres.sh $IP 5432"
-- cd django-app && coverage run --omit=manage.py manage.py test -v 2
+- cd django-app && coverage run --source=note --omit=manage.py manage.py test -v 2
 
 after_success:
 - coveralls
