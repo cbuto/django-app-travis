@@ -17,9 +17,6 @@ env:
     - K8S_DEPLOYMENT_NAME="django-app"
 
 before_script:
-- sudo apt-get -qq update
-- sudo apt-get install postgresql -y
-- pip install -r config/requirements.pip
 - docker pull cbuto/kubectl
 - docker pull ${DOCKER_USERNAME}/django-app-travis
 - docker pull cbuto/django-postgres:v1
@@ -32,10 +29,9 @@ script:
 - docker exec django-app sed -i "s/database.default.svc.cluster.local/$IP/g" django_app/settings.py
 - docker exec django-app bash -c "cd ../scripts &&  chmod +x wait-for-postgres.sh"
 - docker exec django-app bash -c "cd ../scripts && ./wait-for-postgres.sh $IP 5432"
-- coverage run django-app/manage.py test -v 2
+- docker exec django-app coverage run manage.py test -v 2
 
 after_success:
-- coveralls
 - docker build -t ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:${TRAVIS_BUILD_ID} .
 - docker push ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:${TRAVIS_BUILD_ID}
 - docker tag ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:${TRAVIS_BUILD_ID} ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
