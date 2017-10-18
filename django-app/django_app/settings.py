@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
-import os
+import os, sys
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -72,19 +72,31 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_app.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': "django",
         'USER': "django",
         'PASSWORD': "changeme",
         'HOST': 'database.default.svc.cluster.local',
+        'PORT': '', 
+    }
+}
+
+#test db
+if 'test' in sys.argv or 'test_coverage' in sys.argv: #Covers regular testing and django-coverage
+    DATABASES = {
+        'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': "django",
+        'USER': "django",
+        'PASSWORD': "changeme",
+        'HOST': '127.0.0.1',
         'PORT': '',
-	'TEST': {
+        'TEST': {
             'NAME': 'test_django',
         },
     }
