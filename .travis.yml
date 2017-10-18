@@ -7,6 +7,7 @@ notifications:
 
 services:
   - docker
+  - postgresql
 
 os:
 - linux
@@ -18,6 +19,7 @@ env:
 
 before_script:
 - pip install -r config/requirements.pip
+- psql -c 'create database travis_ci_test;' -U postgres
 - docker pull cbuto/kubectl
 - docker pull ${DOCKER_USERNAME}/django-app-travis
 - docker pull cbuto/django-postgres:v1

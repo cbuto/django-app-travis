@@ -91,9 +91,9 @@ if 'test' in sys.argv or 'test_coverage' in sys.argv: #Covers regular testing an
     DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "django",
-        'USER': "django",
-        'PASSWORD': "changeme",
+        'NAME': "travis_ci_test",
+        'USER': "postgres",
+        'PASSWORD': "",
         'HOST': '127.0.0.1',
         'PORT': '',
         'TEST': {
