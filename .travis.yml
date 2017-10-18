@@ -17,6 +17,8 @@ env:
     - K8S_DEPLOYMENT_NAME="django-app"
 
 before_script:
+- sudo apt-get -qq update
+- sudo apt-get install postgresql -y
 - pip install -r config/requirements.pip
 - docker pull cbuto/kubectl
 - docker pull ${DOCKER_USERNAME}/django-app-travis
