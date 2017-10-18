@@ -32,7 +32,7 @@ script:
 - docker exec django-app coverage run manage.py test -v 2
 
 after_success:
-- docker exec django-app export COVERALLS_REPO_TOKEN="${COVERALLS_REPO_TOKEN}"
+- docker exec django-app bash -c "export COVERALLS_REPO_TOKEN=${COVERALLS_REPO_TOKEN}"
 - docker exec django-app coveralls
 - docker build -t ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:${TRAVIS_BUILD_ID} .
 - docker push ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:${TRAVIS_BUILD_ID}
