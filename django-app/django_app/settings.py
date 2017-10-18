@@ -84,6 +84,9 @@ DATABASES = {
         'PASSWORD': "changeme",
         'HOST': 'database.default.svc.cluster.local',
         'PORT': '',
+	'TEST': {
+            'NAME': 'test_django',
+        },
     }
 }
 
