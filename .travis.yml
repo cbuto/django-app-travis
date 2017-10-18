@@ -1,6 +1,6 @@
 sudo: required
 
-language: generic
+language: python
 
 notifications:
   email: false
@@ -17,6 +17,7 @@ env:
     - K8S_DEPLOYMENT_NAME="django-app"
 
 before_script:
+- pip install -r config/requirements.pip
 - docker pull cbuto/kubectl
 - docker pull ${DOCKER_USERNAME}/django-app-travis
 - docker pull cbuto/django-postgres:v1
