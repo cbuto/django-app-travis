@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: django-app
-          image: cbuto/django-app-jenkins:v1
+          image: cbuto/django-app-travis
           imagePullPolicy: Always
           ports:
             - containerPort: 80
