@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/cbuto/django-app-travis-kubernetes.svg?branch=master)](https://travis-ci.org/cbuto/django-app-travis-kubernetes) [![Coverage Status](https://coveralls.io/repos/github/cbuto/django-app-travis/badge.svg?branch=master)](https://coveralls.io/github/cbuto/django-app-travis?branch=master)
+[![Build Status](https://travis-ci.org/cbuto/django-app-travis.svg?branch=master)](https://travis-ci.org/cbuto/django-app-travis) [![Coverage Status](https://coveralls.io/repos/github/cbuto/django-app-travis/badge.svg?branch=master)](https://coveralls.io/github/cbuto/django-app-travis?branch=master)
 # Django Application With Kubernetes and Travis CI 
 
 
